@@ -25,7 +25,6 @@
     "@babel/plugin-transform-runtime": "^7.13.10",
     "@babel/preset-env": "^7.13.10",
     "@babel/preset-react": "^7.12.13",
-    "@babel/runtime": "^7.13.10",
     "babel-loader": "^8.2.2",
     "nodemon": "^2.0.7",
     "request": "^2.88.2",
@@ -35,6 +34,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "@babel/runtime": "^7.13.10",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
     "react": "^17.0.1",
