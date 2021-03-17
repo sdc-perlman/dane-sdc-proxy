@@ -10,9 +10,7 @@ const indexPath =
 export default [
     '/buildings/:space',
     (req, res) => {
-        fs.readFile(indexPath, 'utf8', async (err, data) => {
-            if (err) return res.status(500).json({ message: 'Internal server error' });
-
+        fs.readFile(indexPath, 'utf8', async (_err, data) => {
             try {
                 const ssr = new SSR(req.baseUrl, data);
                 const html = await ssr.getHtml();
