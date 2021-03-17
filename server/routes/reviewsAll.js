@@ -6,7 +6,7 @@ module.exports = [
     '/api/reviews/all/:space',
     reviewsCache,
     createProxyMiddleware({
-        target: 'http://app:5002',
+        target: process.env.REVIEWS_DOMAIN,
         onProxyRes(proxyRes, req, _res) {
             proxyRes.on('data', (data) => {
                 if (req.statusCode < 400) client.setex(`reviews${req.params.space}`, 3600, data.toString());

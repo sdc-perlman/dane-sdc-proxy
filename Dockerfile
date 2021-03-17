@@ -9,4 +9,4 @@ RUN npm install
 
 COPY ./server ./server
 
-CMD ["npm", "run", "server:dev"]
+CMD ["npm", "run", "dev"]
