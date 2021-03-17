@@ -4,12 +4,12 @@ import axios from 'axios';
 
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import ReviewService from '../../client/src/components/ReviewsContainer';
+import ReviewService from '../../services/reviewService/components/ReviewsContainer';
 
 module.exports = [
     '/buildings/:space',
     (req, res) => {
-        fs.readFile(path.resolve(__dirname, '../../client/public/index.html'), 'utf8', async (err, data) => {
+        fs.readFile(path.resolve(__dirname, '../../public/index.html'), 'utf8', async (err, data) => {
             try {
                 if (err) return res.status(500).json({ message: 'Internal server error' });
 

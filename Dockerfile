@@ -8,7 +8,8 @@ COPY ./babel.config.json ./
 
 RUN npm install
 
-COPY ./client ./client
+COPY ./public ./public
+COPY ./services ./services
 COPY ./server ./server
 
 CMD ["npm", "run", "ssr"]
