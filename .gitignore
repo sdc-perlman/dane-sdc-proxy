@@ -12,3 +12,4 @@ package-lock.json
 # Build files
 dist
 !dist/index.html
+build

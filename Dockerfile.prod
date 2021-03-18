@@ -8,6 +8,7 @@ COPY ./package-lock.json ./
 RUN npm install
 
 COPY ./ ./
+COPY ../review-service/client/src/components ./components
 
 RUN npm run build
 
