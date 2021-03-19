@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
-
 import React from 'react';
 import Review from './Review.jsx';
 

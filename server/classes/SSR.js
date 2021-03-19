@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import ReviewsService from '../../components/ReviewsContainer';
+import ReviewsService from '../../client/src/components/ReviewsContainer';
 
 class SSR {
     constructor(baseUrl, html) {
@@ -24,11 +24,7 @@ class SSR {
         await this.getReviewsData();
 
         return ReactDOMServer.renderToString(
-            <ReviewsService
-                exists={true}
-                reviewInfo={this.reviewsData.reviewInfo}
-                reviewsList={this.reviewsData.reviews}
-            />,
+            <ReviewsService reviewInfo={this.reviewsData.reviewInfo} reviewsList={this.reviewsData.reviews} />,
         );
     }
 
