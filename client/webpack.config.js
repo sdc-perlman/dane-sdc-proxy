@@ -6,8 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-// ['@babel/polyfill', SRC + '/index.jsx']
-
 module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.jsx'),
     mode: 'production',
