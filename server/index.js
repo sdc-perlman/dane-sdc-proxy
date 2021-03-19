@@ -1,12 +1,9 @@
-const express = require('express');
-const reviewsAllRoutes = require('./routes/reviewsAll');
-const reviewCalculationRoutes = require('./routes/reviewCalculationRoutes');
+import express from 'express';
+import reviewsRender from './routes/reviewsRender';
 
 const app = express();
-
-app.use(...reviewsAllRoutes);
-app.use(...reviewCalculationRoutes);
-
 const port = process.env.PORT || 6002;
+
+app.use(...reviewsRender);
 
 app.listen(port, () => console.log(`listening on port ${port}`));

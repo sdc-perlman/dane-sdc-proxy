@@ -4,9 +4,12 @@ WORKDIR /app
 
 COPY ./package.json ./
 COPY ./package-lock.json ./
+COPY ./babel.config.json ./
 
 RUN npm install
 
+COPY ./public ./public
+COPY ./services ./services
 COPY ./server ./server
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "ssr"]
