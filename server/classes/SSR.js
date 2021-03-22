@@ -37,15 +37,15 @@ class SSR {
         const addReviews = this.html.replace('<div id="reviews"></div>', `<div id="reviews">${reactHtml}</div>`);
 
         return addReviews.replace(
-            '<script id="global"></script>',
-            `<script id="global">window.__initialData__ = ${JSON.stringify(this.reviewsData)}</script>`,
+            '<script defer="defer" id="global"></script>',
+            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify(this.reviewsData)}</script>`,
         );
     }
 
     static getHtmlWithNoData(html) {
         return html.replace(
-            '<script id="global"></script>',
-            `<script id="global">window.__initialData__ = ${JSON.stringify({
+            '<script defer="defer" id="global"></script>',
+            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify({
                 reviews: [],
                 reviewInfo: { reviewCount: 0, avg: null },
             })} </script>`,

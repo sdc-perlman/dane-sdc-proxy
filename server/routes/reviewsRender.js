@@ -2,12 +2,15 @@ import fs from 'fs';
 import path from 'path';
 import SSR from '../classes/SSR';
 
-module.exports = [
+const indexPath =
+    process.env.NODE_ENV === 'production'
+        ? path.resolve(__dirname, '../public/index.html')
+        : path.resolve(__dirname, '../../public/index.html');
+
+export default [
     '/buildings/:space',
     (req, res) => {
-        fs.readFile(path.resolve(__dirname, '../../public/index.html'), 'utf8', async (err, data) => {
-            if (err) return res.status(500).json({ message: 'Internal server error' });
-
+        fs.readFile(indexPath, 'utf8', async (_err, data) => {
             try {
                 const ssr = new SSR(req.baseUrl, data);
                 const html = await ssr.getHtml();
