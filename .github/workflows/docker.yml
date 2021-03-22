@@ -30,6 +30,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./client
-          file: Dockerfile.prod
+          file: ./client/Dockerfile.prod
           push: true
           tags: manedurphy/review-service-frontend:latest
