@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
 const Stats = ({ reviewInfo = null }) => {
     const { avg, reviewCount } = reviewInfo;
