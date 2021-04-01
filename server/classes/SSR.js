@@ -16,7 +16,7 @@ class SSR {
     }
 
     async getReviewsData() {
-        const { data } = await axios.get(`${process.env.GO_DOMAIN}/api/${this.getId()}`);
+        const { data } = await axios.get(`${process.env.GO_DOMAIN}/${this.getId()}`);
         this.data = data;
     }
 
