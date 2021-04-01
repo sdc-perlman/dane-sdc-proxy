@@ -7,7 +7,7 @@ class SSR {
     constructor(baseUrl, html) {
         this.baseUrl = baseUrl;
         this.html = html;
-        this.reviewsData = null;
+        this.data = null;
     }
 
     getId() {
@@ -16,15 +16,16 @@ class SSR {
     }
 
     async getReviewsData() {
-        const { data } = await axios.get(`${process.env.REVIEWS_DOMAIN}/api/reviews/all/${this.getId()}`);
-        this.reviewsData = data;
+        // const { data } = await axios.get(`${process.env.REVIEWS_DOMAIN}/api/reviews/all/${this.getId()}`);
+        const { data } = await axios.get(`http://go:6003/api/${this.getId()}`);
+        this.data = data;
     }
 
     async renderReact() {
         await this.getReviewsData();
 
         return ReactDOMServer.renderToString(
-            <ReviewsService reviewInfo={this.reviewsData.reviewInfo} reviewsList={this.reviewsData.reviews} />,
+            <ReviewsService reviewInfo={this.data.reviewInfo} reviewsList={this.data.reviews} />,
         );
     }
 
@@ -34,7 +35,7 @@ class SSR {
 
         return addReviews.replace(
             '<script defer="defer" id="global"></script>',
-            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify(this.reviewsData)}</script>`,
+            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify(this.data)}</script>`,
         );
     }
 
