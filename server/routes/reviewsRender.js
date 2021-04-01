@@ -17,6 +17,7 @@ export default [
 
                 return res.send(html);
             } catch (error) {
+                console.log(error);
                 const noDataHtml = SSR.getHtmlWithNoData(data);
                 return res.send(noDataHtml);
             }
