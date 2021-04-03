@@ -10,7 +10,6 @@ const ReviewsContainer = ({ reviewsList = null, reviewInfo = null }) => {
     const [data, setData] = React.useState({ reviewsList, reviewInfo });
 
     React.useEffect(() => {
-        if (window.__initialData__) delete window.__initialData__;
         if (reviewInfo === null) {
             getReviewsData()
                 .then(({ data }) => {
