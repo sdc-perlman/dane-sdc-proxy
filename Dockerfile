@@ -9,7 +9,8 @@ COPY ./babel.config.json ./
 RUN npm install
 
 COPY ./public ./public
-COPY ./services ./services
 COPY ./server ./server
+
+EXPOSE 6002
 
 CMD ["npm", "run", "ssr"]
