@@ -1,21 +1,26 @@
 const path = require('path');
 const PUB = path.resolve(process.env.PWD, 'dist');
-const SRC = path.resolve(process.env.PWD, 'src');
+const reviewsSrc = path.resolve(process.env.PWD, 'reviews', 'src');
+const nearbySrc = path.resolve(process.env.PWD, 'nearby', 'src');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src', 'index.jsx'),
+    entry: {
+        reviews: path.resolve(__dirname, 'reviews', 'src', 'index.jsx'),
+        nearby: path.resolve(__dirname, 'nearby', 'src', 'index.jsx'),
+    },
     mode: 'production',
     output: {
         path: PUB,
-        filename: 'reviews.js',
+        filename: '[name].bundle.js',
         publicPath: '/',
     },
     externals: {
         react: 'React',
+        'react-dom': 'ReactDOM',
     },
     plugins: [
         new CompressionPlugin(),
@@ -29,13 +34,21 @@ module.exports = {
                 test: /\.js/,
                 exclude: /node_modules/,
                 use: 'babel-loader',
-                include: SRC,
+                include: [reviewsSrc, nearbySrc],
             },
             {
-                test: /\.scss$/i,
+                test: /\.(scss|css)$/i,
                 exclude: /node_modules/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             },
         ],
+    },
+    optimization: {
+        runtimeChunk: {
+            name: 'runtime',
+        },
+    },
+    resolve: {
+        extensions: ['.js', '.jsx'],
     },
 };

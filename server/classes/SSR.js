@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import ReviewsService from '../../client/src/components/ReviewsContainer';
+import ReviewsService from '../../client/reviews/src/components/ReviewsContainer';
 
 class SSR {
     constructor(baseUrl, html) {
