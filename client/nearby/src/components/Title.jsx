@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default () => {
-  return (
+const Title = () => (
     <div>
-      <h3 className="nb-section-title">Nearby Buildings</h3>
+        <h3 className="nb-section-title">Nearby Buildings</h3>
     </div>
-  )
-};
+);
+
+export default Title;

@@ -1,16 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Workspace from './workspace/Workspace';
 import Title from './Title';
 import { getWorkspaces } from '../actions';
 
 const WorkspaceContainer = (props = null) => {
-    const [locs, setLocs] = useState(props.nearbyWorkspaces || null);
-    const [allIds, setAllIds] = useState([]);
-    const [allInfo, setAllInfo] = useState(props.allWorkspaceInfo || []);
-    const [pic, setPic] = useState(props.photos || []);
+    const [locs, setLocs] = React.useState(props.nearbyWorkspaces || null);
+    const [allInfo, setAllInfo] = React.useState(props.allWorkspaceInfo || []);
+    const [pic, setPic] = React.useState(props.photos || []);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!props) {
             getWorkspaces()
                 .then(({ nearbyWorkspaces, allWorkspaceInfo, photos }) => {
@@ -22,20 +21,13 @@ const WorkspaceContainer = (props = null) => {
         }
     }, []);
 
-    return locs.length > 0 ? (
-        <>
+    return locs ? (
+        <React.Fragment>
             <Title />
             {locs.map((location) => (
-                <Workspace
-                    key={location.workspaceId}
-                    location={location}
-                    allIds={allIds}
-                    allInfo={allInfo}
-                    details={null}
-                    pic={pic}
-                />
+                <Workspace key={location.workspaceId} location={location} allInfo={allInfo} pic={pic} />
             ))}
-        </>
+        </React.Fragment>
     ) : null;
 };
 
