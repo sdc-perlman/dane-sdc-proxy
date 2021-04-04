@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import ReviewsService from '../../client/src/components/ReviewsContainer';
+import ReviewsService from '../../client/reviews/src/components/ReviewsContainer';
+import NearbyService from '../../client/nearby/src/components/WorkspaceContainer';
 
 class SSR {
     constructor(baseUrl, html) {
@@ -22,17 +23,26 @@ class SSR {
 
     async renderReact() {
         await this.getReviewsData();
-
-        return ReactDOMServer.renderToString(
+        const reviewsJSX = ReactDOMServer.renderToString(
             <ReviewsService reviewInfo={this.data.reviewInfo} reviewsList={this.data.reviews} />,
         );
+        const nearbyJSX = ReactDOMServer.renderToString(
+            <NearbyService
+                nearbyWorkspaces={this.data.nearbyWorkspaces}
+                allWorkspaceInfo={this.data.allWorkspaceInfo}
+                photos={this.data.photos}
+            />,
+        );
+
+        return { reviewsJSX, nearbyJSX };
     }
 
     async getHtml() {
-        const reactHtml = await this.renderReact();
-        const addReviews = this.html.replace('<div id="reviews"></div>', `<div id="reviews">${reactHtml}</div>`);
+        const html = await this.renderReact();
+        const addReviews = this.html.replace('<div id="reviews"></div>', `<div id="reviews">${html.reviewsJSX}</div>`);
+        const addNearby = addReviews.replace('<div id="nearby"></div>', `<div id="nearby">${html.nearbyJSX}</div>`);
 
-        return addReviews.replace(
+        return addNearby.replace(
             '<script defer="defer" id="global"></script>',
             `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify(this.data)}</script>`,
         );
