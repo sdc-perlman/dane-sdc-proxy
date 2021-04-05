@@ -40,7 +40,7 @@ class SSR {
 
         return addNearby.replace(
             '<script defer="defer" id="global"></script>',
-            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify(this.data)}</script>`,
+            `<script defer="defer" id="global">window.initialData = ${JSON.stringify(this.data)}</script>`,
         );
     }
 }
