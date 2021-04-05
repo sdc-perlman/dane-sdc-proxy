@@ -44,16 +44,6 @@ class SSR {
             `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify(this.data)}</script>`,
         );
     }
-
-    static getHtmlWithNoData(html) {
-        return html.replace(
-            '<script defer="defer" id="global"></script>',
-            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify({
-                reviews: [],
-                reviewInfo: { reviewCount: 0, avg: null },
-            })} </script>`,
-        );
-    }
 }
 
 export default SSR;
