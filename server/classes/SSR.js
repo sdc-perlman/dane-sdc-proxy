@@ -16,9 +16,8 @@ class SSR {
         return splitUrl[splitUrl.length - 1];
     }
 
-    async getReviewsData() {
+    async getData() {
         const { data } = await axios.get(`${process.env.GO_DOMAIN}/${this.getId()}`);
-        console.log('DATA: ', data);
         this.data = data;
     }
 
