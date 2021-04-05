@@ -1,48 +1,41 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import LoadingWorkspace from './LoadingWorkspace';
 
-const Workspace = ({ location: { workspaceId, neighborhood }, allInfo, pic }) => {
-    if (allInfo.length === 0) {
-        return <LoadingWorkspace />;
-    }
+function Amenities({ amenities }) {
+    const rest = amenities.length - 5;
 
-    // conditionally render array of amenities data
-    function Amenities({ amenities: { amenities } }) {
-        if (!amenities) {
-            return <></>;
-        }
-        const rest = amenities.length - 5;
-        return (
-            <>
-                {amenities.slice(0, 5).map((am) => (
-                    <li key={`${am.name}-${am.id}`}>
-                        &#8226;
-                        {am.name}
-                    </li>
-                ))}
-                <br />
-                {rest > 0 && <li> + {rest} more </li>}
-            </>
-        );
-    }
+    return (
+        <React.Fragment>
+            {amenities.slice(0, 5).map((am) => (
+                <li key={`${am.name}-${am._id}`}>
+                    {am.name + ' '}
+                    &#8226;{' '}
+                </li>
+            ))}
+            <br />
+            {rest > 0 && <li> {rest}+</li>}
+        </React.Fragment>
+    );
+}
 
-    // insert any available data into workspace-card
+const Workspace = ({ location }) => {
     return (
         <div className="nb-container">
-            <a href={`/buildings/${workspaceId}`} className="light-text">
+            <a href={`/buildings/${location.workspaceId}`} className="light-text">
                 <div className="nb-grid">
                     <div className="nb-photo-container">
-                        <img className="nb-photo" src={pic.url} alt="" />
+                        <img className="nb-photo" src={location.photo.url} alt="" />
                     </div>
                     <div className="nb-description-container">
                         <div>
-                            <h3 className="nb-description-title ">{allInfo.workspaceDescriptionData.name || ''}</h3>
-                            <p className="light-text bold-text">{neighborhood || ''}</p>
+                            <h3 className="nb-description-title ">{location.name || ''}</h3>
+                            <p className="light-text bold-text" style={{ marginTop: '0px' }}>
+                                {location.neighborhood || ''}
+                            </p>
                         </div>
-                        <div className="light-text small-text bold-text">
+                        <div className="light-text small-text bold-text" style={{ marginTop: '40px' }}>
                             <ul className="nb-amenities-list">
-                                <Amenities amenities={allInfo.amenitiesData} />
+                                {location.amenities.length && <Amenities amenities={location.amenities} />}
                             </ul>
                         </div>
                     </div>
@@ -52,9 +45,9 @@ const Workspace = ({ location: { workspaceId, neighborhood }, allInfo, pic }) =>
                         <p>Available workspace</p>
                     </div>
                     <div className="nb-pricing-price pad-10">
-                        {allInfo.workspaceData[0].membership_rate ? (
+                        {location.membership_rate ? (
                             <p>
-                                from <span className="bolder-text">${allInfo.workspaceData[0].membership_rate}/mo</span>
+                                from <span className="bolder-text">${location.membership_rate}/mo</span>
                             </p>
                         ) : (
                             <p>View Inventory</p>

@@ -18,6 +18,7 @@ class SSR {
 
     async getReviewsData() {
         const { data } = await axios.get(`${process.env.GO_DOMAIN}/${this.getId()}`);
+        console.log('DATA: ', data);
         this.data = data;
     }
 
@@ -27,11 +28,7 @@ class SSR {
             <ReviewsService reviewInfo={this.data.reviewInfo} reviewsList={this.data.reviews} />,
         );
         const nearbyJSX = ReactDOMServer.renderToString(
-            <NearbyService
-                nearbyWorkspaces={this.data.nearbyWorkspaces}
-                allWorkspaceInfo={this.data.allWorkspaceInfo}
-                photos={this.data.photos}
-            />,
+            <NearbyService nearbyWorkspaces={this.data.nearbyWorkspaces} />,
         );
 
         return { reviewsJSX, nearbyJSX };
