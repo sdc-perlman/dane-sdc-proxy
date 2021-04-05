@@ -24,7 +24,7 @@ jobs:
           context: .
           file: Dockerfile.prod
           push: true
-          tags: manedurphy/review-service-proxy:latest
+          tags: manedurphy/ssr-service:latest
           
       - name: Build & Push Client
         uses: docker/build-push-action@v2
@@ -32,4 +32,4 @@ jobs:
           context: ./client
           file: ./client/Dockerfile.prod
           push: true
-          tags: manedurphy/review-service-frontend:latest
+          tags: manedurphy/client-service:latest
