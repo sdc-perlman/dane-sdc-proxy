@@ -16,22 +16,18 @@ class SSR {
         return splitUrl[splitUrl.length - 1];
     }
 
-    async getReviewsData() {
+    async getData() {
         const { data } = await axios.get(`${process.env.GO_DOMAIN}/${this.getId()}`);
         this.data = data;
     }
 
     async renderReact() {
-        await this.getReviewsData();
+        await this.getData();
         const reviewsJSX = ReactDOMServer.renderToString(
             <ReviewsService reviewInfo={this.data.reviewInfo} reviewsList={this.data.reviews} />,
         );
         const nearbyJSX = ReactDOMServer.renderToString(
-            <NearbyService
-                nearbyWorkspaces={this.data.nearbyWorkspaces}
-                allWorkspaceInfo={this.data.allWorkspaceInfo}
-                photos={this.data.photos}
-            />,
+            <NearbyService nearbyWorkspaces={this.data.nearbyWorkspaces} />,
         );
 
         return { reviewsJSX, nearbyJSX };
@@ -44,17 +40,7 @@ class SSR {
 
         return addNearby.replace(
             '<script defer="defer" id="global"></script>',
-            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify(this.data)}</script>`,
-        );
-    }
-
-    static getHtmlWithNoData(html) {
-        return html.replace(
-            '<script defer="defer" id="global"></script>',
-            `<script defer="defer" id="global">window.__initialData__ = ${JSON.stringify({
-                reviews: [],
-                reviewInfo: { reviewCount: 0, avg: null },
-            })} </script>`,
+            `<script defer="defer" id="global">window.initialData = ${JSON.stringify(this.data)}</script>`,
         );
     }
 }

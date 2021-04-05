@@ -2,8 +2,8 @@
 import React from 'react';
 import ReviewsContainer from './ReviewsContainer.jsx';
 const ReviewsService = () => {
-    return window.__initialData__ ? (
-        <ReviewsContainer reviewInfo={window.__initialData__.reviewInfo} reviewsList={window.__initialData__.reviews} />
+    return window.initialData ? (
+        <ReviewsContainer reviewInfo={window.initialData.reviewInfo} reviewsList={window.initialData.reviews} />
     ) : (
         <ReviewsContainer />
     );
