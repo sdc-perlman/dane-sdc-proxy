@@ -3,7 +3,7 @@ import React from 'react';
 import WorkspaceContainer from './WorkspaceContainer';
 
 const NearbyService = () => {
-    return window.__initialData__ ? (
+    return window.initialData ? (
         <WorkspaceContainer nearbyWorkspaces={window.initialData.nearbyWorkspaces} />
     ) : (
         <WorkspaceContainer />

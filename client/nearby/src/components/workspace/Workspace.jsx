@@ -6,12 +6,15 @@ function Amenities({ amenities }) {
 
     return (
         <React.Fragment>
-            {amenities.slice(0, 5).map((am) => (
-                <li key={`${am.name}-${am._id}`}>
-                    {am.name + ' '}
-                    &#8226;{' '}
-                </li>
-            ))}
+            {amenities.map(
+                (am, i) =>
+                    i < 5 && (
+                        <li key={`${am.name}-${am._id}`}>
+                            {am.name + ' '}
+                            &#8226;{' '}
+                        </li>
+                    ),
+            )}
             <br />
             {rest > 0 && <li> {rest}+</li>}
         </React.Fragment>

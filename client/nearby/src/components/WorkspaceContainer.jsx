@@ -20,8 +20,8 @@ const WorkspaceContainer = (props) => {
     return locs.length > 0 ? (
         <React.Fragment>
             <Title />
-            {locs.map((loc, i) => (
-                <Workspace key={i} location={loc} />
+            {locs.map((loc) => (
+                <Workspace key={loc.workspaceId} location={loc} />
             ))}
         </React.Fragment>
     ) : null;
