@@ -2,15 +2,18 @@ const path = require('path');
 const PUB = path.resolve(process.env.PWD, 'dist');
 const reviewsSrc = path.resolve(process.env.PWD, 'reviews', 'src');
 const nearbySrc = path.resolve(process.env.PWD, 'nearby', 'src');
+const locationSrc = path.resolve(process.env.PWD, 'location');
 const CompressionPlugin = require('compression-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { EnvironmentPlugin } = require('webpack');
 
 module.exports = {
     entry: {
         reviews: path.resolve(__dirname, 'reviews', 'src', 'index.jsx'),
         nearby: path.resolve(__dirname, 'nearby', 'src', 'index.jsx'),
+        location: path.resolve(__dirname, 'location', 'index.js'),
     },
     mode: 'production',
     output: {
@@ -27,6 +30,7 @@ module.exports = {
         new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin(),
+        new EnvironmentPlugin({ KEY: process.env.KEY }),
     ],
     module: {
         rules: [
@@ -34,7 +38,7 @@ module.exports = {
                 test: /\.js/,
                 exclude: /node_modules/,
                 use: 'babel-loader',
-                include: [reviewsSrc, nearbySrc],
+                include: [reviewsSrc, nearbySrc, locationSrc],
             },
             {
                 test: /\.(scss|css)$/i,
