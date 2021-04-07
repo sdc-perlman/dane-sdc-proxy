@@ -24,8 +24,6 @@ class SSR {
     async renderReact() {
         await this.getData();
 
-        console.log('DATA: ', this.data);
-
         const reviewsJSX = ReactDOMServer.renderToString(
             <ReviewsService reviewInfo={this.data.reviewInfo} reviewsList={this.data.reviews} />,
         );
