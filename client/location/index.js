@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Map from './Components/Map';
 import NearbyTransitList from './Components/NearbyTransitList';
 
-const App = () => {
-    const [locationData, updateLocationData] = useState({
+const App = (props) => {
+    const [locationData, updateLocationData] = React.useState({
         origin: {
             rawAddress: '4011 S Central Ave, Los Angeles, CA 90011, USA',
             coordinates: [34.0105442, -118.2569161],
@@ -26,33 +27,24 @@ const App = () => {
         },
     });
 
-    const [nearbyTransits, updateNearbyTransits] = useState([]);
+    const [nearbyTransits, updateNearbyTransits] = React.useState(props.nearbyTransits || []);
     const { origin } = locationData;
     const { streetName, streetNumber, city, state, zip } = origin;
 
-    useEffect(() => {
+    React.useEffect(() => {
         let splitUrl = window.location.pathname.split('/').filter((el) => el);
         const id = splitUrl[splitUrl.length - 1];
 
-        //fetch(`/api/nearbyworkspaces/buildings/${id}`)
-        //  .then(data => {
-        //    return data.json()
-        //  })
-        //  .then(json => {
-        //    updateLocationData(json);
-        //  })
-        //  .catch(err => {
-        //    console.error(err);
-        //  });
-
-        fetch(`/api/getNearbyTransitOptions/${id}`)
-            .then((data) => {
-                return data.json();
-            })
-            .then((json) => {
-                const options = json.nearbyTransitOptions;
-                updateNearbyTransits(options);
-            });
+        if (!props.nearbyTransits) {
+            fetch(`/api/getNearbyTransitOptions/${id}`)
+                .then((data) => {
+                    return data.json();
+                })
+                .then((json) => {
+                    const options = json.nearbyTransitOptions;
+                    updateNearbyTransits(options);
+                });
+        }
     }, []);
 
     return (
@@ -87,4 +79,6 @@ const App = () => {
 };
 
 const root = document.getElementById('location-service');
-ReactDOM.render(<App />, root);
+ReactDOM.render(window.initialData ? <App nearbyTransits={window.initialData.nearbyTransitOptions} /> : <App />, root);
+
+export default App;
