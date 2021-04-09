@@ -55,7 +55,6 @@
     justify-content: space-between;
     color: #555;
     border-top: 1px solid #ddd;
-    padding-top: 20px;
 }
 
 .nb-photo-container {
@@ -128,7 +127,7 @@
 /*  TYPOGRAPY  AND SPACING*/
 
 .pad-10 {
-    padding: 10px 10px 0px 10px;
+    padding: 10px;
 }
 .bold-text {
     font-weight: 500;
