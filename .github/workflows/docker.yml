@@ -34,4 +34,4 @@ jobs:
           push: true
           tags: manedurphy/client-service:latest
           build-args:
-            - KEY: ${{ secrets.KEY }}
+            - KEY=${{ secrets.KEY }}
