@@ -2,22 +2,22 @@
 import React from 'react';
 
 function Amenities({ amenities }) {
-    const rest = amenities.length - 5;
-
+    const amensArr = amenities.split(',');
+    if (!amenities) {
+        return <></>;
+    }
+    const rest = amensArr.length - 5;
     return (
-        <React.Fragment>
-            {amenities.map(
-                (am, i) =>
-                    i < 5 && (
-                        <li key={`${am.name}-${am._id}`}>
-                            {am.name + ' '}
-                            &#8226;{' '}
-                        </li>
-                    ),
-            )}
+        <>
+            {amensArr.map((am, id) => (
+                <li key={`${am}-${id}`}>
+                    &#8226;
+                    {am}
+                </li>
+            ))}
             <br />
-            {rest > 0 && <li> {rest}+</li>}
-        </React.Fragment>
+            {rest > 0 && <li>{` + ${rest} more `}</li>}
+        </>
     );
 }
 
@@ -31,14 +31,16 @@ const Workspace = ({ location }) => {
                     </div>
                     <div className="nb-description-container">
                         <div>
-                            <h3 className="nb-description-title ">{location.name || ''}</h3>
+                            <h3 className="nb-description-title ">
+                                {location.streetNumber || ''} {location.streetName || ''}
+                            </h3>
                             <p className="light-text bold-text" style={{ marginTop: '0px' }}>
                                 {location.neighborhood || ''}
                             </p>
                         </div>
                         <div className="light-text small-text bold-text" style={{ marginTop: '40px' }}>
                             <ul className="nb-amenities-list">
-                                {location.amenities.length && <Amenities amenities={location.amenities} />}
+                                <Amenities amenities={location.amenities} />
                             </ul>
                         </div>
                     </div>
@@ -48,9 +50,9 @@ const Workspace = ({ location }) => {
                         <p>Available workspace</p>
                     </div>
                     <div className="nb-pricing-price pad-10">
-                        {location.membership_rate ? (
+                        {location.rate ? (
                             <p>
-                                from <span className="bolder-text">${location.membership_rate}/mo</span>
+                                from <span className="bolder-text">${location.rate}/mo</span>
                             </p>
                         ) : (
                             <p>View Inventory</p>
