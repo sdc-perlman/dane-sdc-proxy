@@ -4,6 +4,10 @@ WORKDIR /app
 
 COPY . .
 
+ARG KEY
+
+ENV KEY=${KEY}
+
 RUN npm install && npm run build
 
 
