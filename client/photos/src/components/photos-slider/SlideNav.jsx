@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import GlobalStyles from '../globalStyles.js';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import {
     Button,
-    ImageWrapper,
-    Image,
-    ImageCaption,
     NavButtonWrapper,
     NavImage,
     NavImageWrapper,
-    RightArrow,
-    Slider,
-    Slides,
-    SlidesTrackWrapper,
-    SlideButton,
     SlideNavImages,
     SlideNavImagesTrack,
     SlideNavWrapper,
-    SlideWrapper,
-} from './styles.js';
+} from './styles.jsx';
 
 const SlideNav = ({ photos, activeSlide = 0, handleSetSlide }) => {
     let offset = 0;
@@ -57,71 +47,4 @@ const SlideNav = ({ photos, activeSlide = 0, handleSetSlide }) => {
     );
 };
 
-const Slide = ({ photo }) => (
-    <SlideWrapper>
-        <ImageWrapper>
-            <Image src={photo.url} alt={photo.description} />
-        </ImageWrapper>
-        <ImageCaption>{photo.description}</ImageCaption>
-    </SlideWrapper>
-);
-
-const SlidesTrack = ({ photos, activeSlide }) => (
-    <SlidesTrackWrapper activeSlide={activeSlide}>
-        {photos.map((photo) => (
-            <Slide key={photo.id} photo={photo} />
-        ))}
-    </SlidesTrackWrapper>
-);
-
-const SlideNext = ({ handleClick }) => (
-    <SlideButton onClick={handleClick}>
-        <RightArrow xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.99 6.99">
-            <g data-name="Layer 2">
-                <path
-                    d="M11.85 6.85a.46.46 0 0 1-.67 0L6 1.2.81 6.85a.46.46 0 0 1-.67 0 .46.46 0 0 1 0-.67l5.47-6V.1A.5.5 0 0 1 6 0a.45.45 0 0 1 .35.14v.08l5.46 6a.46.46 0 0 1 .04.63z"
-                    data-name="Layer 1"
-                ></path>
-            </g>
-        </RightArrow>
-    </SlideButton>
-);
-
-const PhotosSlider = () => {
-    const { workspaceId } = useParams();
-    const [photos, setPhotos] = useState([]);
-    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-
-    const handleNextSlide = () => {
-        if (activeSlideIndex < photos.length - 1) {
-            setActiveSlideIndex(activeSlideIndex + 1);
-        } else {
-            setActiveSlideIndex(0);
-        }
-    };
-
-    const handleSetSlide = (i) => {
-        setActiveSlideIndex(i);
-    };
-
-    useEffect(() => {
-        fetch(`/api/photos/workspace/${workspaceId}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setPhotos(data);
-            });
-    }, []);
-
-    return (
-        <Slider>
-            <GlobalStyles />
-            <Slides>
-                <SlidesTrack photos={photos} activeSlide={activeSlideIndex} />
-                <SlideNext handleClick={handleNextSlide} />
-            </Slides>
-            <SlideNav photos={photos} activeSlide={activeSlideIndex} handleSetSlide={handleSetSlide} />
-        </Slider>
-    );
-};
-
-export default PhotosSlider;
+export default SlideNav;

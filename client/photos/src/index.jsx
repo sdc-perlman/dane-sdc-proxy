@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import PhotosSlider from './components/photos-slider';
+import PhotosService from './components/PhotosService';
 
-ReactDOM.render(
+ReactDOM.hydrate(
     <Router>
         <Switch>
             <Route exact path="/">
                 <Redirect to="/buildings/1" />
             </Route>
             <Route path="/buildings/:workspaceId">
-                <PhotosSlider />
+                <PhotosService />
             </Route>
         </Switch>
     </Router>,
