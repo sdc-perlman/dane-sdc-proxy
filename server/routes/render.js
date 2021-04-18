@@ -17,7 +17,7 @@ export default [
 
                 return res.send(html);
             } catch (error) {
-                console.log(error);
+                console.log('Error 20: ', error);
                 return res.send(data);
             }
         });
