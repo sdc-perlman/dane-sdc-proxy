@@ -5,7 +5,7 @@ import { Wrapper } from './styles';
 
 const Map = ({ locationData }) => {
     const { origin, nearbyWorkspaces } = locationData;
-    const coordinates = origin.geometry.coordinates;
+    const coordinates = origin.geometry;
 
     useEffect(() => {
         mapboxgl.accessToken = process.env.KEY;
@@ -36,9 +36,9 @@ const Map = ({ locationData }) => {
                 el.className = 'marker nearby';
 
                 new mapboxgl.Marker(el)
-                    .setLngLat(workspace.geometry.coordinates)
+                    .setLngLat(workspace.geometry)
                     .addTo(map)
-                    .setLngLat(workspace.geometry.coordinates)
+                    .setLngLat(workspace.geometry)
                     .setPopup(
                         new mapboxgl.Popup({ offset: 25, closeButton: false }).setHTML(
                             `<a class="building-link" href=/buildings/${workspace.workspaceId}>` +

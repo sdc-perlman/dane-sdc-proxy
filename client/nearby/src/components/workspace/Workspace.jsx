@@ -9,12 +9,17 @@ function Amenities({ amenities }) {
     const rest = amensArr.length - 5;
     return (
         <>
-            {amensArr.map((am, id) => (
-                <li key={`${am}-${id}`}>
-                    &#8226;
-                    {am}
-                </li>
-            ))}
+            {amensArr.map((am, id) =>
+                id != 0 ? (
+                    <li key={`${am}-${id}`}>
+                        {' '}
+                        &#8226;
+                        {' ' + am}
+                    </li>
+                ) : (
+                    <li key={`${am}-${id}`}>{am}</li>
+                ),
+            )}
             <br />
             {rest > 0 && <li>{` + ${rest} more `}</li>}
         </>
