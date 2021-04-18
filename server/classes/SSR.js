@@ -8,19 +8,7 @@ class SSR {
     constructor(baseUrl, html) {
         this.baseUrl = baseUrl;
         this.html = html;
-        this.data = {
-            reviews: [],
-            reviewInfo: {},
-            nearbyWorkspaces: [],
-            nearbyTransitOptions: {},
-            photos: {},
-        };
-        this.urls = [
-            process.env.REVIEWS_DOMAIN,
-            process.env.NEARBY_DOMAIN,
-            process.env.LOCATION_DOMAIN,
-            process.env.PHOTOS_DOMAIN,
-        ];
+        this.data = null;
     }
 
     getId() {
@@ -29,14 +17,8 @@ class SSR {
     }
 
     async getData() {
-        const promises = this.urls.map((url) => axios.get(url + this.getId()));
-        const responses = await Promise.all(promises);
-
-        this.data.reviews = responses[0].data.reviews;
-        this.data.reviewInfo = responses[0].data.reviewInfo;
-        this.data.nearbyWorkspaces = responses[1].data.nearbyWorkspaces;
-        this.data.nearbyTransitOptions = responses[2].data.nearbyTransitOptions;
-        this.data.photos = responses[3].data;
+        const { data } = await axios.get(process.env.GO_DOMAIN + this.getId());
+        this.data = data;
     }
 
     async renderReact() {
