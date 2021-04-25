@@ -13,9 +13,9 @@ const { EnvironmentPlugin } = require('webpack');
 module.exports = {
     entry: {
         reviews: path.resolve(__dirname, 'reviews', 'src', 'index.jsx'),
-        nearby: path.resolve(__dirname, 'nearby', 'src', 'index.jsx'),
-        location: path.resolve(__dirname, 'location', 'index.js'),
-        photos: path.resolve(__dirname, 'photos', 'src', 'index.jsx'),
+        // nearby: path.resolve(__dirname, 'nearby', 'src', 'index.jsx'),
+        // location: path.resolve(__dirname, 'location', 'index.js'),
+        // photos: path.resolve(__dirname, 'photos', 'src', 'index.jsx'),
     },
     mode: 'production',
     output: {
