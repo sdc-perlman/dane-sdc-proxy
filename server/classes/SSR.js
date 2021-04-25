@@ -17,7 +17,8 @@ class SSR {
     }
 
     async getData() {
-        const { data } = await axios.get(process.env.GO_DOMAIN + this.getId());
+        const { data } = await axios.get(`http://reviews-service:5002/api/reviews/all/${this.getId()}`);
+        // const { data } = await axios.get(process.env.GO_DOMAIN + this.getId());
         this.data = data;
     }
 
